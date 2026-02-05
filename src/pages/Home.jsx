@@ -38,11 +38,16 @@ const Home = () => {
     return match ? match[1].trim() : response.trim();
   }
 
-  const ai = new GoogleGenAI({
-    apiKey: import.meta.env.VITE_GEMINI_API_KEY
-  });
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  
+  const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
   async function getResponse() {
+    if (!apiKey) {
+      toast.error("API key not configured. Please set VITE_GEMINI_API_KEY");
+      return;
+    }
+
     if (!prompt.trim()) return toast.error("Please describe your component first");
 
     try {

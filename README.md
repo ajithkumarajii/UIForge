@@ -101,9 +101,22 @@ src/
 
 ## 🔐 Environment Variables
 
+### Local Development
+Create a `.env.local` file in the root directory:
 ```env
-VITE_GEMINI_API_KEY=your_api_key_here
+VITE_GEMINI_API_KEY=your_gemini_api_key_here
 ```
+
+### Important Security Notes
+- `.env.local` is automatically excluded from git (see `.gitignore`)
+- Never commit API keys to version control
+- Use `.env.example` as a template for required variables
+- For production, set environment variables in your hosting platform
+
+### Getting API Key
+1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Click "Create new API key"
+3. Copy the key and add it to `.env.local`
 
 ## 📱 Responsive Breakpoints
 
@@ -118,7 +131,31 @@ VITE_GEMINI_API_KEY=your_api_key_here
 npm run build
 ```
 
+### Environment Variables for Deployment
+
+**Never commit `.env.local` to version control.** Instead:
+
+1. **On Netlify/Vercel**: 
+   - Go to **Settings → Environment Variables**
+   - Add `VITE_GEMINI_API_KEY=your_api_key_here`
+
+2. **On Docker/Server**:
+   ```bash
+   export VITE_GEMINI_API_KEY=your_api_key_here
+   npm run build
+   ```
+
+3. **Security Best Practice**:
+   - Use `.env.example` as a template (already in repo)
+   - `.env.local` is in `.gitignore` and won't be committed
+   - Always set API keys in deployment platform's environment settings
+
 ### Deploy to Netlify/Vercel
+```bash
+npm run build
+# Upload dist folder to your hosting service
+```
+
 The `dist` folder is ready for deployment to any static hosting service.
 
 ## 🤝 Key Functions
@@ -156,14 +193,5 @@ npm run build
 
 **Port 5173 in use**: Change port in `vite.config.js`
 
-## 📄 License
-
-MIT License - feel free to use this project for learning and development.
-
-## 👨‍💻 Author
-
-Created as an AI Component Generator demonstration using modern web technologies.
-
----
 
 **Made with ❤️ using React, Tailwind CSS, and Google Gemini AI**
